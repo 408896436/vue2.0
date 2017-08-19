@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>push、replace切换路由</title>
+</head>
+<body>
+	<div id='app'>
+		<button @click="push">主页</button>
+		<button @click="replace">登陆页</button>
+		<router-view></router-view>
+	</div>
+	<script src='js/vue.js'></script>
+	<script src='js/vue-router.js'></script>
+	<script>
+		//组件
+		var Home={
+		    template:'<h3>我是主页</h3>'
+		};
+		var Login={
+		    template:'<h3>我是登陆页</h3>'
+		};
+
+		//配置路由
+		var routes = [
+		    {path:'/home', component:Home},
+		    {path:'/login', component:Login},
+		    {path:'*', redirect:'/home'}	
+		];
+
+		//生成路由实例
+		var router = new VueRouter({
+		    routes
+		});
+
+		//最后挂到vue上
+		new Vue({
+		    router,
+		    el:'#app',
+		    methods:{
+                push(){
+                    router.push({path:'home'});	//直接添加一个路由,表现切换路由，本质往历史记录里面添加一个
+                },
+                replace(){
+                    router.replace({path:'login'});	//替换路由，不会往历史记录里面添加
+                }
+            }
+		});
+
+	</script>
+</body>
+</html>

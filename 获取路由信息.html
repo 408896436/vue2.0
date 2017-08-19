@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>获取路由信息</title>
+</head>
+<body>
+	<div id='app'>
+		<router-link to="/home">主页</router-link>
+		<router-link to="/login">登陆页</router-link>
+		<router-view></router-view>
+	</div>
+
+	<template id='home'>
+		<h3>我是主页</h3>
+	</template>
+
+	<template id='login'>
+		<!--2.0中的templat，只能有一个根元素，所以要在这里套上一个div-->
+		<div>	
+			<h3>我是登陆页</h3>
+			<router-link to="/login/username/tom/80">user</router-link>
+			<router-view></router-view>
+		</div>
+	</template>
+	
+	<template id='user'>
+		<h3>{{$route.params}}</h3>
+	</template>
+	<script src='js/vue.js'></script>
+	<script src='js/vue-router.js'></script>
+	<script>
+		//组件
+		var Home={
+		    template : '#home'
+		};
+		var Login={
+		    template : '#login'
+		};
+		var User={
+			 template : '#user'
+		}
+
+		//配置路由
+		var routes = [
+		    {
+		    	path:'/home', 
+		    	component:Home
+		    },
+		    {
+		    	path:'/login', 
+		    	component:Login,
+		    	children:[  //核心
+		            {path:'username/:name/:age', component:User}
+		        ]
+		    },
+		    {path:'*', redirect:'/home'}	
+		];
+
+		//生成路由实例
+		var router = new VueRouter({
+		    routes
+		});
+
+		//最后挂到vue上
+		new Vue({
+		    router,
+		    el:'#app'
+		});
+
+	</script>
+</body>
+</html>

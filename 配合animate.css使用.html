@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>配合animate.css使用</title>
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
+	<style>
+		.box{
+			width: 300px; 
+			height: 300px; 
+			margin: 0 auto;
+			background: green; 
+		}
+	</style>
+</head>
+<body>
+	<div id='app'>
+		<input type='button' value='click' @click="show=!show">
+		<transition enter-active-class="zoomInLeft" leave-active-class="zoomOutRight">	
+			<div v-show="show" class='box animated'></div>
+		</transition>
+	</div>
+	<script src='js/vue.js'></script>
+	<script type="text/javascript">
+		new Vue({
+			el : '#app',
+			data : {
+				show : false
+			}
+		})
+	</script>
+</body>
+</html>

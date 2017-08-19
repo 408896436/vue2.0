@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>transition-一个动画</title>
+	<style>
+		.box{
+			width: 300px; 
+			height: 300px; 
+			background: green; 
+		}
+	
+		/*动画配置*/
+		.fade-enter-active, .fade-leave-active{
+            transition: 1s all ease;
+        }
+		
+		/*动画开始运行的状态*/
+		.fade-enter-active{
+			opacity: 1;
+			background: green;
+		}
+
+		/*动画开始结束的状态*/
+		.fade-leave-active{
+			opacity: 0;
+			background: red;
+		}
+		
+		/*动画的初始和结束状态*/
+		.fade-enter,.fade-leave{
+			opacity: 0;
+			background: red;
+		}
+
+		/*注意！上面动画的摆放顺序最好和我的上面一样*/
+		
+	</style>
+</head>
+<body>
+	<div id='app'>
+		<input type='button' value='click' @click="show=!show">
+		<transition name="fade">	
+			<div v-show="show" class='box'></div>
+		</transition>
+	</div>
+	<script src='js/vue.js'></script>
+	<script type="text/javascript">
+		new Vue({
+			el : '#app',
+			data : {
+				show : false
+			}
+		})
+	</script>
+</body>
+</html>

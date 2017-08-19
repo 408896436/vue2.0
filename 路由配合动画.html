@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>路由配合动画</title>
+	<style>
+		body{overflow: hidden;}
+		h3{position: absolute;}
+	</style>
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
+</head>
+<body>
+	<div id='app'>
+		<router-link to="/home">主页</router-link>
+		<router-link to="/login">登陆页</router-link>
+		<transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">	
+			<router-view></router-view>
+		</transition>
+	</div>
+	<script src='js/vue.js'></script>
+	<script src='js/vue-router.js'></script>
+	<script>
+		//组件
+		var Home={
+		    template:'<h3>我是主页</h3>'
+		};
+		var Login={
+		    template:'<h3>我是登陆页</h3>'
+		};
+
+		//配置路由
+		var routes = [
+		    {path:'/home', component:Home},
+		    {path:'/login', component:Login},
+		    {path:'*', redirect:'/home'}
+		];
+
+		//生成路由实例
+		var router = new VueRouter({
+		    routes
+		});
+
+		//最后挂到vue上
+		new Vue({
+		    router,
+		    el:'#app'
+		});
+
+	</script>
+</body>
+</html>
